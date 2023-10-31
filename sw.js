@@ -792,7 +792,7 @@ caches.open('9922').then(function (cache) {
         caches.has(resources[ke]).then(function(v){
             if(v === true){
                 ke++
-                setTimeout(request,100);
+                return setTimeout(request,50);
             }
             cache.add(resources[ke]).then(function(){
                 if(performance.now() - date > 777 + time){
