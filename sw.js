@@ -774,7 +774,7 @@ self.addEventListener('install', function (e) {
             resources.forEach(function(e){
                 cache.add(e)
             })    
-            return cache.addAll([]);
+            return cache.addAll(resources);
         })
     );
 });
