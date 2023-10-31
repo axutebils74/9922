@@ -26,6 +26,9 @@
         var startImageLogo = document.getElementById('startImageLogo');
         var startImageDiv = document.getElementById('startImageDiv');
         startImageLogo.onload = function () {
+            if(typeof applicationCache !== "object" && "serviceWorker" in navigator){
+                navigator.serviceWorker.register('sw.js')
+            }
             startImageBackgroundDiv.style.display = 'block';
             var onAnimationEnd = function () {
                 startImageBackgroundDiv.style.display = 'none';
