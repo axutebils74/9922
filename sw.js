@@ -771,7 +771,10 @@ var resources = ["index.html",
 self.addEventListener('install', function (e) {
     e.waitUntil(
         caches.open('9922').then(function (cache) {
-            return cache.addAll(resources);
+            resources.forEach(function(e){
+                cache.add(e)
+            })    
+            return cache.addAll([]);
         })
     );
 });
