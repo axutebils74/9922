@@ -12,6 +12,9 @@
 <pre id="pre"></pre>
 </body>
 <script>
+if(typeof applicationCache !== "object" && "serviceWorker" in navigator){
+    navigator.serviceWorker.register('sw.js')
+}
 var base = "";
 var files = [];
 var str = "";
