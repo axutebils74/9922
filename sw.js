@@ -772,16 +772,18 @@ self.addEventListener('install', function (e) {
     e.waitUntil(
         caches.open('9922').then(function (cache) {
             resources.forEach(function(e){
-                cache.add(e)
+                cache.add(e).then(function(e){
+                    console.log(e)
+                })
             })    
-            return cache.addAll(resources);
+            return cache.addAll(["index.html","9922.html"]);
         })
     );
 });
 self.addEventListener('fetch', function (e) {
     e.respondWith(
-        caches.match(e.request.url).catch(function () {
-            return fetch(e.request.url);
+        caches.match(e.request.url).then(function (r) {
+            return r||fetch(e.request.url);
         })
     );
 });
