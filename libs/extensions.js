@@ -21,7 +21,7 @@ extensions.prototype._load = function (callback) {
 
 extensions.prototype._loadJs = function (file, callback, onerror) {
     var script = document.createElement('script');
-    script.src = file + '?v=' + main.version;
+    script.src = file;
     script.onload = callback;
     script.onerror = onerror;
     main.dom.body.appendChild(script);

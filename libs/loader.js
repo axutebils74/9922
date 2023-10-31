@@ -258,7 +258,7 @@ loader.prototype.loadImage = function (dir, imgName, callback) {
         image.onerror = function () {
             callback(imgName, null);
         }
-        image.src = 'project/' + dir + '/' + name + "?v=" + main.version;
+        image.src = 'project/' + dir + '/' + name;
         if (name.endsWith('.gif'))
             callback(imgName, null);
     }
@@ -275,7 +275,7 @@ loader.prototype.loadImagesFromZip = function (url, names, toSave, onprogress, o
         return;
     }
 
-    core.unzip(url + "?v=" + main.version, function (data) {
+    core.unzip(url, function (data) {
         var cnt = 1;
         names.forEach(function (name) {
             var imgName = name;
@@ -307,7 +307,7 @@ loader.prototype._loadAnimates_sync = function () {
 
     if (main.supportBunch) {
         if (core.animates.length > 0) {
-            core.http('GET', '__all_animates__?v=' + main.version + '&id=' + core.animates.join(','), null, function (content) {
+            core.http('GET', '__all_animates__' + main.version + '&id=' + core.animates.join(','), null, function (content) {
                 var u = content.split('@@@~~~###~~~@@@');
                 for (var i = 0; i < core.animates.length; ++i) {
                     if (u[i] != '') {
@@ -322,7 +322,7 @@ loader.prototype._loadAnimates_sync = function () {
     }
 
     core.animates.forEach(function (t) {
-        core.http('GET', 'project/animates/' + t + ".animate?v=" + main.version, null, function (content) {        
+        core.http('GET', 'project/animates/' + t + ".animate", null, function (content) {        
             core.material.animates[t] = core.loader._loadAnimate(content);
         }, function (e) {
             main.log(e);
@@ -332,7 +332,7 @@ loader.prototype._loadAnimates_sync = function () {
 }
 
 loader.prototype._loadAnimates_async = function (onprogress, onfinished) {
-    core.unzip('project/animates/animates.h5data?v=' + main.version, function (animates) {
+    core.unzip('project/animates/animates.h5data', function (animates) {
         for (var name in animates) {
             if (name.endsWith(".animate")) {
                 var t = name.substring(0, name.length - 8);
@@ -410,7 +410,7 @@ loader.prototype._loadMusic_async = function (onprogress, onfinished) {
     core.bgms.forEach(function (t) {
         core.loader.loadOneMusic(t);
     });
-    core.unzip('project/sounds/sounds.h5data?v=' + main.version, function (data) {
+    core.unzip('project/sounds/sounds.h5data', function (data) {
         // 延迟解析
         setTimeout(function () {
             for (var name in data) {
@@ -436,7 +436,7 @@ loader.prototype.loadOneMusic = function (name) {
 }
 
 loader.prototype.loadOneSound = function (name) {
-    core.http('GET', 'project/sounds/' + name + "?v=" + main.version, null, function (data) {
+    core.http('GET', 'project/sounds/' + name, null, function (data) {
         core.loader._loadOneSound_decodeData(name, data);
     }, function (e) {
         main.log(e);
