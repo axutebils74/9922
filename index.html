@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh" manifest="test.appcache">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>预加载 只是一个测试</title>
+</head>
+<body>
+    <a href="https://h5mota.com/tower/?name=9922">原作 咕工智障（侵删）</a>
+<a href="9922.html">测试链接</a>
+<input type="file" webkitdirectory id="f"><button hidden onclick="k1()">下载</button><br><hr>
+<pre id="pre"></pre>
+</body>
+<script>
+var base = "";
+var files = [];
+var str = "";
+function get(e){
+    var a = document.createElement('a');
+    a.href = e;
+    return a.href
+}
+f.oninput = function(){
+    if(f.value){
+        files = f.files;
+        getBase();
+        for(var i = 0;i < files.length;i++){
+            files[i].path = files[i].webkitRelativePath.slice(base.length);
+        }
+        document.querySelectorAll('button').forEach(function(e){
+            e.hidden = ''
+        })
+        str = ""
+        for(var i = 1 ; i < files.length;i++){
+            str+=files[i].path + "\n";
+        }
+        str+=files[0].path;
+        str = "CACHE MANIFEST" + "\n" + str
+        pre.innerText = str;
+    }else{
+        //document.querySelectorAll('button').forEach(function(e){
+        //    e.hidden = 'hidden'
+        //})
+    }
+}
+function download(e){
+    var a = document.createElement('a');
+    var blob = new Blob([e]);
+    var url = URL.createObjectURL(blob);
+    a.href = url;
+    a.download = "cache.appcache";
+    document.body.appendChild(a);
+    a.click();
+    URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+}
+function getBase(){
+    for(var i = 0 ; i < files.length;i++){
+        file = files[i];
+        if(file.name == 'index.html'){
+            base = file.webkitRelativePath.slice(0,-10);
+            return;
+        }
+    }
+}
+function k1(){
+    download(str);
+}
+</script>
+</html>
