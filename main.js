@@ -273,7 +273,7 @@ main.prototype.loadJs = function (dir, loadList, callback) {
 main.prototype.loadMod = function (dir, modName, callback, onerror) {
     var script = document.createElement('script');
     var name = modName;
-    script.src = dir + '/' + modName + (this.useCompress?".min":"") + '.js?v=' + this.version;
+    script.src = dir + '/' + modName + (this.useCompress?".min":"") + '.js';
     script.onload = function () {
         callback(name);
     }
@@ -287,7 +287,7 @@ main.prototype.loadFloors = function (callback) {
     main.setMainTipsText('正在加载楼层文件...')
     if (this.useCompress) { // 读取压缩文件
         var script = document.createElement('script');
-        script.src = 'project/floors.min.js?v=' + this.version;
+        script.src = 'project/floors.min.js';
         main.dom.body.appendChild(script);
         script.onload = function () {
             main.dom.mainTips.style.display = 'none';
@@ -298,7 +298,7 @@ main.prototype.loadFloors = function (callback) {
 
     // 高层塔优化
     var script = document.createElement('script');
-    script.src = '__all_floors__.js?v=' + this.version + '&id=' + main.floorIds.join(',');
+    script.src = '__all_floors__.js' + this.version + '&id=' + main.floorIds.join(',');
     script.onload = function () {
         main.dom.mainTips.style.display = 'none';
         main.supportBunch = true;
@@ -322,7 +322,7 @@ main.prototype.loadFloors = function (callback) {
 ////// 加载某一个楼层 //////
 main.prototype.loadFloor = function(floorId, callback) {
     var script = document.createElement('script');
-    script.src = 'project/floors/' + floorId +'.js?v=' + this.version;
+    script.src = 'project/floors/' + floorId +'.js';
     main.dom.body.appendChild(script);
     script.onload = function () {
         callback(floorId);
