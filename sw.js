@@ -786,7 +786,6 @@ for(var i = 0;i<resources.length;i++){
 caches.open('9922').then(function (cache) {
     var ke = 0;
     function request(){
-        console.log(resources.length,time);
         var date = performance.now()
         if(ke >= resources.length){return}
         caches.has(resources[ke]).then(function(v){
@@ -814,7 +813,6 @@ caches.open('9922').then(function (cache) {
             }
             resources.length = 0;
             for(var i in obj){ if(obj[i]) resources.push(i);}
-            resources.sort(function(){return Math.random()-0.5})
             request();
         } 
     })
@@ -823,6 +821,7 @@ caches.open('9922').then(function (cache) {
 self.addEventListener('fetch', function (e) {
     e.respondWith(
         caches.match(e.request).then(function (response) {
+            if(time<1000) time+=69;
             if (response) { return response; }
             return fetch(e.request).then(function (response) {
                 if (!response || response.status !== 200 || response.type !== 'basic') {
