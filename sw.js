@@ -797,6 +797,7 @@ caches.open('9922').then(function (cache) {
                 if(performance.now() - date > 777 + time){
                     time += 64
                 }else{
+                    if(time > 1000) time-=765;
                     time -= 48
                     time = Math.max(29,time);
                 }
