@@ -821,7 +821,7 @@ caches.open('9922').then(function (cache) {
 self.addEventListener('fetch', function (e) {
     e.respondWith(
         caches.match(e.request).then(function (response) {
-            if(time<1000) time+=69;
+             time=Math.max(time,980);
             if (response) { return response; }
             return fetch(e.request).then(function (response) {
                 if (!response || response.status !== 200 || response.type !== 'basic') {
