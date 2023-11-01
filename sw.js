@@ -797,7 +797,7 @@ caches.open('9922').then(function (cache) {
                 if(performance.now() - date > 777 + time){
                     time += 64
                 }else{
-                    if(time > 1000) time-=765;
+                    if(time > 1000) time-=966;
                     time -= 48
                     time = Math.max(29,time);
                 }
@@ -822,8 +822,8 @@ caches.open('9922').then(function (cache) {
 self.addEventListener('fetch', function (e) {
     e.respondWith(
         caches.match(e.request).then(function (response) {
-             time=Math.max(time,6980);
             if (response) { return response; }
+            time=Math.max(time,6980);
             return fetch(e.request).then(function (response) {
                 if (!response || response.status !== 200 || response.type !== 'basic') {
                     return response;
