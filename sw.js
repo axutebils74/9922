@@ -791,14 +791,14 @@ caches.open('9922').then(function (cache) {
         caches.has(resources[ke]).then(function(v){
             if(v === true){
                 ke++
-                return setTimeout(request,50);
+                return setTimeout(request,62);
             }
             cache.add(resources[ke]).then(function(){
                 if(performance.now() - date > 777 + time){
                     time += 64
                 }else{
                     time -= 48
-                    time = Math.max(0,time);
+                    time = Math.max(29,time);
                 }
                 ke++
                 setTimeout(request,time);
